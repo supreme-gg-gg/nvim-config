@@ -19,7 +19,7 @@ require("lazy").setup({
     { "windwp/nvim-autopairs" },
     { "nvim-lualine/lualine.nvim" },  -- Status bar
     { "nvim-tree/nvim-web-devicons" }, -- Icons for a better look
-    { "github/copilot.vim" }
+    { "github/copilot.vim" },
 })
 
 -- Load configurations
@@ -40,15 +40,20 @@ vim.opt.expandtab = true
 -- Open NERDTree automatically if no files are provided
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
-        if vim.fn.argc() == 0 then
-            vim.cmd("NERDTree")
-        end
-    end
+         if vim.fn.argc() == 0 then
+              vim.cmd("NERDTree")
+          end
+ end
 })
+
+vim.api.nvim_create_user_command("Fe", function()
+    -- Open NERDTree
+    vim.cmd("NERDTreeToggle")
+end, {})
 
 -- Auto-format on save for C/C++/Python/TypeScript/Go
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = { "*.c", "*.cpp", "*.h", "*.py", "*.ts", "*.go" },
+    pattern = { "*.c", "*.cpp", "*.h", "*.py", "*.ts", "*.js", "*.go", "*.v" },
     callback = function()
         vim.lsp.buf.format({ async = true })
     end,

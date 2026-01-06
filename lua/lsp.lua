@@ -1,10 +1,14 @@
-local lspconfig = require("lspconfig")
+local lspconfig = require('lspconfig')
 
 -- LSP servers
 lspconfig.clangd.setup {}
 lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}  -- TypeScript/JavaScript LSP
+lspconfig.ts_ls.setup {}       -- TypeScript/JavaScript LSP
 lspconfig.gopls.setup {}      -- Go LSP
+lspconfig.rust_analyzer.setup {} -- Rust LSP
+lspconfig.verible.setup {
+  cmd = {'verible-verilog-ls', '--rules_config_search'},
+}
 
 -- Keybindings for LSP features
 vim.api.nvim_create_autocmd("LspAttach", {
